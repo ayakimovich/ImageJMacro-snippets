@@ -1,0 +1,3 @@
+run("Grid/Collection stitching", "type=[Grid: row-by-row] order=[Right & Down                ] grid_size_x=2 grid_size_y=2 tile_overlap=4 first_file_index_i=0 directory=E:\\AYData\\130216-AY-JM-VACV-spread-TC-4x_Plate_10\\Analysis\\F03_NoAgr_WR\\Processed\\8bit\\rgb file_names={i}rgb.tif output_textfile_name=TileConfiguration.txt fusion_method=[Linear Blending] regression_threshold=0.30 max/avg_displacement_threshold=2.50 absolute_displacement_threshold=3.50 compute_overlap subpixel_accuracy computation_parameters=[Save memory (but be slower)] image_output=[Fuse and display]");
+//saveAs("Tiff", "E:\\AYData\\130216-AY-JM-VACV-spread-TC-4x_Plate_10\\Analysis\\G07_NoAgr_NoIHDJ\\G07_TL.tif");
+//close();
