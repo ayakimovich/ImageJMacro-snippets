@@ -4,6 +4,7 @@
 // Artur Yakimovich (c) copyright 2013. University of Zurich
 print ("start");
 //get the path from user input
+wavelength = "w3.TIF";
 ReadPath = getDirectory("Choose a Directory");
 //create a new directory for the processed images
 processedDir=ReadPath+File.separator+"Movies";
@@ -29,7 +30,7 @@ Array.print(timePointsList);
 fileList = getFileList(ReadPath+File.separator+timePointsList[0]);
 imageList = newArray();
 for(i=0; i<=fileList.length-1; i++){
-                if (endsWith(fileList[i], "w1.TIF"))
+                if (endsWith(fileList[i], wavelength))
                                 imageList = Array.concat(imageList, fileList[i]);
                 else
                                print ("pattern not found in "+fileList[i]);
@@ -45,13 +46,14 @@ for(i=0; i<=imageList.length-1; i++){
                 for(j=0; j<=timePointsList.length-1; j++){
                 	open(ReadPath+File.separator+timePointsList[j]+File.separator+imageList[i]);
 		}                
-                run("Images to Stack", "name=Stack title=["+imageList[i]+"] use");
+                run("Images to Stack", "name="+imageList[i]);
 
                 // get the title and save the image
-                title = getTitle();
-                print("Saving: "+title);
-                saveAs("Tiff", ReadPath+File.separator+title+"_FFT_BP.tif");
+                //title = getTitle();
+                print("Saving: "+imageList[i]);
+                saveAs("Tiff", processedDir+File.separator+imageList[i]+"_movie.tif");
                 //close the window
                 close();
                 }
 print ("end");
+
