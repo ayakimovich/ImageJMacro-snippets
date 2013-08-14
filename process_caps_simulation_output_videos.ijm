@@ -28,7 +28,7 @@ print("Saving: "+title);
 saveAs("Tiff", processedDir+File.separator+title);
 
 //downsample
-run("Size...", "width=1280 height=1013 depth=27 constrain average interpolation=Bilinear");
+run("Size...", "width=1280 height=1013 depth="+fileList.length+" constrain average interpolation=Bilinear");
 saveAs("Tiff", processedDir+File.separator+"small_"+title);
 
 run("Close");
