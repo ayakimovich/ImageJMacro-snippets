@@ -20,7 +20,10 @@ for(i=0; i<=list.length-1; i++){
 
 run("Image Sequence...", "open="+ReadPath+File.separator+fileList[0]+" number="+fileList.length+" starting=1 increment=1 scale=100 file=[] or=[] sort");
 //start processing
-makeRectangle(1240, 1200, 6590, 5220);
+//100 cells:
+//makeRectangle(1240, 1200, 6590, 5220);
+//50 cells:
+makeRectangle(1247, 968, 6896, 5441);
 run("Crop");
 
 title = getTitle();
