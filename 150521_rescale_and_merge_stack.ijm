@@ -8,7 +8,7 @@ filePattern = "^.*_[B-D][0-9]*_s[0-9]_w1.*.tif"
 
 patternRed = "w4";
 minRed = 4000; 
-maxRed = 1800;
+maxRed = 18000;
 
 patternGreen = "w3";
 minGreen = 3500; 

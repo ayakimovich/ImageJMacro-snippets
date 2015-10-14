@@ -5,7 +5,8 @@ ReadPath = getDirectory("Choose a Directory");
 //create a new directory for the processed images
 stitchedDir=ReadPath+"Stitched";
 File.makeDirectory(stitchedDir);
-
+print ("start");
+setBatchMode(true);
 fileNameCore = "150415-Francesca-Hela-Fucci-timelapse";
 fileExt = '.TIF';
 numberOfChannels = 4;
@@ -58,3 +59,4 @@ for (iTP=1; iTP<=tpDirList.length; iTP++){
 }
 
 print ("end");
+setBatchMode(false);
