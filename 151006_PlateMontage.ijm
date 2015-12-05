@@ -6,7 +6,7 @@
 //change
 setBatchMode(true);
 
-ReadPath = "Q:\\Francesca_HDD2\\140901-Virus-Hela-ATCC-experiment-14s-binned_Plate_1062";
+ReadPath = getDirectory("Choose a Directory");
 SavePath = ReadPath+File.separator+"Montage";
 print ("start "+ReadPath);
 File.makeDirectory(SavePath);
