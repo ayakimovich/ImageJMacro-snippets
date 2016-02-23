@@ -7,14 +7,14 @@ print ("start");
 setBatchMode(true);
 //wavelength = "B04_s9_w1.TIF";
 //rowList = newArray('B','C','D','E','F','G');
-rowList = newArray('B','C','D');
+rowList = newArray('B','C','D','E','F','G');
 
 minCol = 2;
-maxCol = 11;
+maxCol = 9;
 minSite = 1;
 maxSite = 9;
-minW = 5;
-maxW = 5;
+minW = 1;
+maxW = 4;
 wavelength = "B02_s1_w1.TIF";
 //rowList = newArray('D','E');
 

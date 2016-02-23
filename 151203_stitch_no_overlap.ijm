@@ -36,7 +36,7 @@ print ("TimePoints found: "+d2s(tpDirList.length,0));
 //main for-loop
 
 print ("start");
-for (iTP=1; iTP<=tpDirList.length+1; iTP++){
+for (iTP=1; iTP<=tpDirList.length; iTP++){
 	for(i=1; i<=numberOfChannels; i++){
 		for(j=0; j<=rowList.length-1; j++){
 			for(k=0; k<=colList.length-1; k++){
