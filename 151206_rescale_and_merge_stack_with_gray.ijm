@@ -5,23 +5,23 @@
 setBatchMode(true);
 //regex pattern for a file including w1 channel, this is needed to identify unique sites
 filePattern = "^.*_[A-H][0-9]*_s[0-9]_w1.*.tif"
-
+preprocess = true;
 patternRed = "w4";
-minRed = 1200; 
-maxRed = 2200;
+minRed = 150; 
+maxRed = 1800;
 
 patternGreen = "w3";
-minGreen = 1500; 
-maxGreen = 2200;
+minGreen = 150; 
+maxGreen = 1800;
 
 patternBlue = "w2";
-minBlue = 350; 
-maxBlue = 420;
+minBlue = 50; 
+maxBlue = 300;
 
 
-patternGray = "w5";
-minGray = 25000; 
-maxGray = 65535;
+patternGray = "w1";
+minGray = 1200; 
+maxGray = 6000;
 
 
 //user defined variables end
@@ -58,23 +58,39 @@ for(i=0; i<=fileList.length-1; i++){
 	redFileName = replace(fileList[i], "w1", patternRed);
 	print(ReadPath+redFileName);
 	open(ReadPath+redFileName);	
+	if(preprocess == true){
+		print("preprocessing...");
+		run("Enhance Contrast", "saturated=0.35");
+		run("Subtract Background...", "rolling=50 stack");
+	}
 	setMinAndMax(minRed, maxRed);
     run("8-bit");
     
 	// green
 	greenFileName = replace(fileList[i], "w1", patternGreen);
 	open(ReadPath+greenFileName);
+	if(preprocess == true){
+		run("Enhance Contrast", "saturated=0.35");
+		run("Subtract Background...", "rolling=50 stack");
+	}
 	setMinAndMax(minGreen, maxGreen);
     run("8-bit");
     
 	// blue
 	blueFileName = replace(fileList[i], "w1", patternBlue);
 	open(ReadPath+blueFileName);
+	if(preprocess == true){
+		run("Enhance Contrast", "saturated=0.35");
+		run("Subtract Background...", "rolling=50 stack");
+	}
 	setMinAndMax(minBlue, maxBlue);
     run("8-bit");
 
 	grayFileName = replace(fileList[i], "w1", patternGray);
 	open(ReadPath+grayFileName);
+	if(preprocess == true){
+		run("Enhance Contrast", "saturated=0.35");
+	}	
 	setMinAndMax(minGray, maxGray);
     run("8-bit");
 

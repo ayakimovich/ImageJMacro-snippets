@@ -8,12 +8,29 @@
 
 setBatchMode(true);
 //get the path from user input
+resolutionFilter = true;
+minResolution = 4;
+maxResolution = 8;
 ReadPath = getDirectory("Choose a Directory");
 SavePath = ReadPath+"separate_channels";
 File.makeDirectory(SavePath);
 //create a new directory for the processed images
 //processedDir=ReadPath+"Processed";
 //File.makeDirectory(processedDir);
+
+
+// get the title and save the image
+function splitAndSave(SavePath, title){
+	//print("Saving: "+title);
+	title = replace(title, ".lsm", "");
+	title = replace(title, " ", "");
+	print("Saving: "+title);
+	SaveDir = SavePath+File.separator+title;
+	print(SaveDir);
+	File.makeDirectory(SaveDir);
+	run("Image Sequence... ", "format=TIFF digits=0 use save=["+SaveDir+"]");
+	//close the window
+}
 
 list = getFileList(ReadPath);
 //clean up the file list
@@ -34,20 +51,26 @@ for(i=0; i<=fileList.length-1; i++){
 	//open an image from the list
 	open(fileList[i]);
 		
+	if (resolutionFilter == true){
+		
+		infoArray = split(getImageInfo(),'\n');
+		imageResolutionArray = split(infoArray[6]," ");
+		print(imageResolutionArray[1]);
+		imageResolution = parseFloat(imageResolutionArray[1]);
 
-	// get the title and save the image
-	title = getTitle();
-	//print("Saving: "+title);
-	title = replace(title, ".lsm", "");
-	title = replace(title, " ", "");
-	print("Saving: "+title);
-	SaveDir = SavePath+File.separator+title;
-	print(SaveDir);
-	File.makeDirectory(SaveDir);
-	run("Image Sequence... ", "format=TIFF digits=0 use save=["+SaveDir+"]");
-	//close the window
-	close();
-
+		if ((imageResolution >= minResolution) && (imageResolution <= maxResolution)){
+				title = getTitle();
+				splitAndSave(SavePath, title);
+				close();
+			} else {
+					close();
+				}
+		} 
+	else {
+		  title = getTitle();
+		  splitAndSave(SavePath, title);
+		  close();
+		}
 	}
 print ("end");
 
