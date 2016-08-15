@@ -12,13 +12,13 @@ function getAllOpenWindows(returnType){
         	ids[i] = getImageID(); 
         	names[i] = getTitle(); 
         	print(ids[i] + " = " + names[i]);
-        	if(returnType=="ids"){
-        		return ids;
-        	}
-        	else if(returnType=="names"){
-        		return names;
-        	}
-		} 
+		}
+		if(returnType=="ids"){
+           return ids;
+        }
+        else if(returnType=="names"){
+           return names;
+        }
 }
 
 
@@ -76,12 +76,14 @@ maxBlue = 255;
 
 
 
-for (iFiles=0; iFiles < files.length; iFiles++) {
+for (iFiles=0; iFiles < files.length; iFiles++){
 //	open(inDir+File.separator+files[i]);
 	//run("Bio-Formats Importer", "open=["+inDir+File.separator+files[iFiles]+"] autoscale color_mode=Default view=Hyperstack stack_order=XYCZT");
 	run("Bio-Formats Importer", "open=["+inDir+File.separator+files[iFiles]+"] autoscale color_mode=Default open_all_series view=Hyperstack stack_order=XYCZT");
 	openImageNames = getAllOpenWindows("names");
-	for (iSeries=0; iSeries < openImageNames.length; iSeries++) {
+	print("images open are: ");
+	Array.print(openImageNames);
+	for (iSeries=0; iSeries < openImageNames.length; iSeries++){
 		selectWindow(openImageNames[iSeries]);
 		run("Split Channels");	
 		scaleChannel(minBlue, maxBlue, patternBlue, files[iFiles], openImageNames[iSeries]);
@@ -90,9 +92,10 @@ for (iFiles=0; iFiles < files.length; iFiles++) {
 		run("Merge Channels...", "c1=["+patternRed+"-"+openImageNames[iSeries]+"] c2=["+patternGreen+"-"+openImageNames[iSeries]+"] c3=["+patternBlue+"-"+openImageNames[iSeries]+"]");
 		selectWindow("RGB");
 		run("Z Project...", "projection=[Max Intensity]");
-		print("Saving: "+files[iFiles]);
-		saveAs("Tiff", outDir+File.separator+files[iFiles]);
-		close();
+		print("Saving: "+openImageNames[iSeries]);
+		saveAs("Tiff", outDir+File.separator+openImageNames[iSeries]);
+		close("*RGB*");
+		close("*"+openImageNames[iSeries]+"*");
 	}
 }  
 
