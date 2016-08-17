@@ -30,7 +30,7 @@ function getDirAndFileList(ReadPath, filePattern, listType){
 
 function scaleChannel(min, max, pattern, file){
 	selectWindow(pattern+"-"+file);
-	setMinAndMax(min, min);
+	setMinAndMax(min, max);
 	run("8-bit");
 }
 
@@ -45,16 +45,16 @@ File.makeDirectory(outDir);
 
 colors = 3;
 patternRed = "C3";
-minRed = 2000; 
-maxRed = 6000;
+minRed = 200; 
+maxRed = 2000;
 
 patternGreen = "C2";
-minGreen = 2000; 
+minGreen = 200; 
 maxGreen = 8000;
 
 patternBlue = "C1";
-minBlue = 4000; 
-maxBlue = 65000;
+minBlue = 1000; 
+maxBlue = 18000;
 
 
 

@@ -48,7 +48,7 @@ function getDirAndFileList(ReadPath, filePattern, listType){
 
 function scaleChannel(min, max, pattern, file, seriesName){
 	selectWindow(pattern+"-"+seriesName);
-	setMinAndMax(min, min);
+	setMinAndMax(min, max);
 	run("8-bit");
 }
 
@@ -58,9 +58,10 @@ function scaleChannel(min, max, pattern, file, seriesName){
 inDir = getDirectory("Select the input folder..."); 
 setBatchMode(true);
 files = getDirAndFileList(inDir, ".*.lif", "file"); 
-outDir = inDir + File.separator + "tiffs";
+outDir = inDir + File.separator + "tiffs-slice5";
 File.makeDirectory(outDir);
 
+sliceNumber = 5;
 colors = 3;
 patternRed = "C3";
 minRed = 9; 
@@ -91,7 +92,8 @@ for (iFiles=0; iFiles < files.length; iFiles++){
 		scaleChannel(minRed, maxRed, patternRed, files[iFiles], openImageNames[iSeries]);
 		run("Merge Channels...", "c1=["+patternRed+"-"+openImageNames[iSeries]+"] c2=["+patternGreen+"-"+openImageNames[iSeries]+"] c3=["+patternBlue+"-"+openImageNames[iSeries]+"]");
 		selectWindow("RGB");
-		run("Z Project...", "projection=[Max Intensity]");
+		//run("Z Project...", "projection=[Max Intensity]");
+		run("Slice Keeper", "first="+sliceNumber+" last="+sliceNumber+" increment=1");
 		print("Saving: "+openImageNames[iSeries]);
 		saveAs("Tiff", outDir+File.separator+openImageNames[iSeries]);
 		close("*RGB*");
