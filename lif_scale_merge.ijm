@@ -48,6 +48,9 @@ function getDirAndFileList(ReadPath, filePattern, listType){
 
 function scaleChannel(min, max, pattern, file, seriesName){
 	selectWindow(pattern+"-"+seriesName);
+	if (bitDepth() == 8){
+		run("16-bit");
+	}
 	setMinAndMax(min, max);
 	run("8-bit");
 }
@@ -57,23 +60,23 @@ function scaleChannel(min, max, pattern, file, seriesName){
 
 inDir = getDirectory("Select the input folder..."); 
 setBatchMode(true);
-files = getDirAndFileList(inDir, ".*.lif", "file"); 
-outDir = inDir + File.separator + "tiffs-slice5";
+files = getDirAndFileList(inDir, ".*K48.*.lif", "file"); 
+outDir = inDir + File.separator + "tiffs-z";
 File.makeDirectory(outDir);
 
 sliceNumber = 5;
 colors = 3;
 patternRed = "C3";
-minRed = 9; 
-maxRed = 95;
+minRed = 16; //9
+maxRed = 255; //95
 
 patternGreen = "C2";
-minGreen = 9; 
-maxGreen = 95;
+minGreen = 16; //9
+maxGreen = 200; //95
 
 patternBlue = "C1";
 minBlue = 0; 
-maxBlue = 255;
+maxBlue = 180; //255
 
 
 
@@ -91,13 +94,18 @@ for (iFiles=0; iFiles < files.length; iFiles++){
 		scaleChannel(minGreen, maxGreen, patternGreen, files[iFiles], openImageNames[iSeries]);
 		scaleChannel(minRed, maxRed, patternRed, files[iFiles], openImageNames[iSeries]);
 		run("Merge Channels...", "c1=["+patternRed+"-"+openImageNames[iSeries]+"] c2=["+patternGreen+"-"+openImageNames[iSeries]+"] c3=["+patternBlue+"-"+openImageNames[iSeries]+"]");
-		selectWindow("RGB");
-		//run("Z Project...", "projection=[Max Intensity]");
-		run("Slice Keeper", "first="+sliceNumber+" last="+sliceNumber+" increment=1");
-		print("Saving: "+openImageNames[iSeries]);
-		saveAs("Tiff", outDir+File.separator+openImageNames[iSeries]);
-		close("*RGB*");
 		close("*"+openImageNames[iSeries]+"*");
+		selectWindow("RGB");
+		run("Z Project...", "projection=[Max Intensity]");
+		close("RGB");
+		selectWindow("MAX_RGB");
+		//run("Slice Keeper", "first="+sliceNumber+" last="+sliceNumber+" increment=1");
+		title = replace(openImageNames[iSeries], ".lif", "");
+		title = replace(title, " ", "");
+		print("Saving: "+title);
+		saveAs("Tiff", outDir+File.separator+title);
+		selectWindow(title+".tif");
+		close(title+".tif");
 	}
 }  
 
