@@ -41,23 +41,23 @@ function scaleChannel(min, max, pattern, file){
 
 
 inDir = getDirectory("Select the input folder..."); 
-setBatchMode(true);
+setBatchMode(false);
 files = getDirAndFileList(inDir, ".*.czi", "file"); 
 outDir = inDir + File.separator + "tiffs";
 File.makeDirectory(outDir);
 
 colors = 3;
 patternRed = "C3";
-minRed = 500; 
-maxRed = 2500;
+minRed = 200; 
+maxRed = 2000;
 
 patternGreen = "C2";
 minGreen = 200; 
-maxGreen = 30000;
+maxGreen = 8000;
 
 patternBlue = "C1";
-minBlue = 1800; 
-maxBlue = 13000;
+minBlue = 1000; 
+maxBlue = 18000;
 
 
 

@@ -60,7 +60,7 @@ function scaleChannel(min, max, pattern, file, seriesName){
 
 inDir = getDirectory("Select the input folder..."); 
 setBatchMode(true);
-files = getDirAndFileList(inDir, ".*K48.*.lif", "file"); 
+files = getDirAndFileList(inDir, ".*.lif", "file"); 
 outDir = inDir + File.separator + "tiffs-z";
 File.makeDirectory(outDir);
 
