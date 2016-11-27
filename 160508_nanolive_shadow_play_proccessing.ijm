@@ -8,7 +8,7 @@
 
 setBatchMode(true);
 //get the path from user input
-sliceNumber = 45;
+sliceNumber = 46;
 ReadPath = getDirectory("Choose a Directory");
 processedDir = ReadPath+"ProcessedDir";
 File.makeDirectory(processedDir); 
