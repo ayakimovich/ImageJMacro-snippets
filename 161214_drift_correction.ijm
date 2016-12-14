@@ -26,9 +26,11 @@ function getDirAndFileList(ReadPath, filePattern, listType){
 	}
 }
 
-xDrift = -4;
-yDrift = 0;
-driftLinearIncrease = true;
+baseDriftX = 20;
+baseDriftY = 2;
+
+increaseIteratorX = 4;
+increaseIteratorY = 0;
 
 inDir = getDirectory("Select the input folder...");
 resultDir = inDir+File.separator + "drift_corrected";
@@ -47,12 +49,11 @@ for(i=1; i<=fileList.length-1; i++){
 	open(fileList[i]);
 	alignChannelTitle = getTitle();
 	selectWindow(alignChannelTitle);
-	if(driftLinearIncrease){
-		makeLine(935+(xDrift*i), 119+(yDrift*i), 935+(xDrift*i), 326+(yDrift*i));
-	}
-	else{
-		makeLine(935+xDrift, 119+yDrift, 935+xDrift, 326+yDrift);
-	}
+
+	xDrift = baseDriftX + increaseIteratorX*i;
+	yDrift = baseDriftY + increaseIteratorY*i;
+
+	makeLine(935+xDrift, 119+yDrift, 935+xDrift, 326+yDrift);
 	
 	print("aligning: "+alignChannelTitle);
 	
