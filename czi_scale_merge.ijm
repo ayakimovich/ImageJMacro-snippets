@@ -48,16 +48,16 @@ File.makeDirectory(outDir);
 
 colors = 3;
 patternRed = "C3";
-minRed = 500; 
-maxRed = 2500;
+minRed = 12000; 
+maxRed = 35000;
 
 patternGreen = "C2";
-minGreen = 200; 
-maxGreen = 30000;
+minGreen = 2000; 
+maxGreen = 10000;
 
 patternBlue = "C1";
-minBlue = 1800; 
-maxBlue = 13000;
+minBlue = 2000; 
+maxBlue = 65535;
 
 
 
