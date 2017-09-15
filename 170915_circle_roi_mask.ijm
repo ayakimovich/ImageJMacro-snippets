@@ -68,12 +68,14 @@ for (iFiles=0; iFiles < files.length; iFiles++){
 	print (files[iFiles]);
 	//open an image from the list
 	open(files[iFiles]);
-	
+	getRawStatistics(nPixels, mean, min, max, std, histogram);
 	makeOval(78, -10, 524, 524);
+	run("Make Inverse");
 	
 	run("Multiply...", "value=0.000 stack");
 	run("Add Specified Noise...", "stack standard=10");
-	run("Add...", "value=190 stack");
+	run("Add...", "value="+d2s(min-10,0)+" stack");
+	run("Select None");
 	//run("Add...", "value=80 slice");
 	title = getTitle();
 	print("Saving: "+outDir+File.separator+title);
