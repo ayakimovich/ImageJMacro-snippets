@@ -43,7 +43,9 @@ yCentroid = coordinates[1];
 
 radialStep = 5*2; // in pixels, *2 adjusts for diameter
 getDimensions(width, height, channels, slices, frames);
-arraySize = floor(getMin(width,height)/radialStep);
+maxWidth = width - abs(width/2-xCentroid);
+maxHeight = height - abs(height/2-yCentroid);
+arraySize = floor(getMin(maxWidth,maxHeight)/radialStep);
 
 //reallocate arrays and initiate measurements
 avgRdfArray = newArray(arraySize);
